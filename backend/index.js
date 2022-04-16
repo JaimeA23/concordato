@@ -7,9 +7,9 @@ import router from "./routes/index.js";
 dotenv.config();
 const app = express();
 
-
+console.log('Server running at port 5000a')
 var allowCrossDomain = function(req, res, next) {
-
+    console.log('Server running at port 5000b')
 
     const corsWhitelist = [
         'http://localhost:3000',

@@ -18,7 +18,7 @@ const Login = () => {
             console.log('submit is');
 
             try {
-                await axios.post('http://localhost:5000/login', {
+                await axios.post('http://3.145.26.185:5000/login', {
                     email: email,
                     password: password
                 });

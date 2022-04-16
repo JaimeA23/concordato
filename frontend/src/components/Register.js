@@ -16,7 +16,7 @@ const Register = () => {
 
         if(buttonType==="submit"){
             try {
-                await axios.post('http://localhost:5000/users', {
+                await axios.post('http://3.145.26.185:5000/users', {
                     name: name,
                     email: email,
                     password: password,

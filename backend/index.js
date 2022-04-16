@@ -15,8 +15,7 @@ app.use((req, res, next) => {
     next();
 });
 
- 
-app.use(cors({ credentials:true, origin:'http://localhost:3000' }));
+app.use( cors({ origin: true, credentials: true  }) );
 app.use(cookieParser());
 app.use(express.json());
 app.use(router);

@@ -10,17 +10,45 @@ const Login = () => {
 
     const Auth = async (e) => {
         e.preventDefault();
-        try {
-            await axios.post('http://localhost:5000/login', {
-                email: email,
-                password: password
-            });
-            history.push("/dashboard");
-        } catch (error) {
-            if (error.response) {
-                setMsg(error.response.data.msg);
+        console.log('ingreso');
+
+        const buttonType=window.event.submitter.name // will return draft or submit and you can handle it using switch case.
+
+        if(buttonType==="submit"){
+            console.log('submit is');
+
+            try {
+                await axios.post('http://localhost:5000/login', {
+                    email: email,
+                    password: password
+                });
+                history.push("/dashboard");
+            } catch (error) {
+                if (error.response) {
+                    setMsg(error.response.data.msg);
+                }
             }
-        }
+
+            return;
+            }
+
+        if(buttonType==="draft"){
+                console.log('draft is');
+    
+
+                try {
+                    history.push("/register");
+                } catch (error) {
+                    if (error.response) {
+                        setMsg(error.response.data.msg);
+                    }
+                }
+                
+    
+             return;
+             }
+
+
     }
 
     return (
@@ -44,9 +72,15 @@ const Login = () => {
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <button className="button is-success is-fullwidth">Login</button>
+                                <button className="button is-success is-fullwidth" type="submit" name="submit">Login</button> 
                                 </div>
+                                <div className="field mt-5">
+                                <button className="button is-success is-fullwidth" type="submit" name="draft">Register</button> 
+                                </div>
+
+                                
                             </form>
+                            
                         </div>
                     </div>
                 </div>

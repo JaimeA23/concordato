@@ -12,19 +12,44 @@ const Register = () => {
 
     const Register = async (e) => {
         e.preventDefault();
-        try {
-            await axios.post('http://localhost:5000/users', {
-                name: name,
-                email: email,
-                password: password,
-                confPassword: confPassword
-            });
-            history.push("/");
-        } catch (error) {
-            if (error.response) {
-                setMsg(error.response.data.msg);
+        const buttonType=window.event.submitter.name // will return draft or submit and you can handle it using switch case.
+
+        if(buttonType==="submit"){
+            try {
+                await axios.post('http://localhost:5000/users', {
+                    name: name,
+                    email: email,
+                    password: password,
+                    confPassword: confPassword
+                });
+                history.push("/");
+            } catch (error) {
+                if (error.response) {
+                    setMsg(error.response.data.msg);
+                }
             }
-        }
+            return;
+            }
+
+
+        if(buttonType==="draft"){
+                console.log('draft is');
+    
+
+                try {
+                    history.push("/");
+                } catch (error) {
+                    if (error.response) {
+                        setMsg(error.response.data.msg);
+                    }
+                }
+                
+    
+             return;
+             }
+        
+
+      
     }
 
     return (
@@ -61,7 +86,10 @@ const Register = () => {
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <button className="button is-success is-fullwidth">Register</button>
+                                <button className="button is-success is-fullwidth" type="submit" name="submit">Register</button> 
+                                </div>
+                                <div className="field mt-5">
+                                <button className="button is-success is-fullwidth" type="submit" name="draft">Login</button> 
                                 </div>
                             </form>
                         </div>

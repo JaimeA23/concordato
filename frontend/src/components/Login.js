@@ -15,10 +15,10 @@ const Login = () => {
         const buttonType=window.event.submitter.name // will return draft or submit and you can handle it using switch case.
 
         if(buttonType==="submit"){
-            console.log('submit is');
+            console.log('submit is' + process.env.REACT_APP_URL+':5000/login');
 
             try {
-                await axios.post('http://3.145.26.185:5000/login', {
+                await axios.post(process.env.REACT_APP_URL+':5000/login', {
                     email: email,
                     password: password
                 });

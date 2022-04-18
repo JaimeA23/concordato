@@ -1,17 +1,106 @@
 import Users from "../models/UserModel.js";
+import Personaje from "../models/PersonajeModel.js";
+import Raza from "../models/RazaModel.js";
+import Estados from "../models/EstadosModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
  
 export const getUsers = async(req, res) => {
     try {
         const users = await Users.findAll({
-            attributes:['id','name','email']
+            attributes:['id','name','email','rol']
         });
         res.json(users);
     } catch (error) {
         console.log(error);
     }
 }
+
+export const getUser = async(req, res) => {
+    if(req.query.id=="todos"){
+        try {
+            const users = await Personaje.findAll({
+                attributes:['id','name','user_id'],
+            });
+            res.json(users);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    else{
+        try {
+            const users = await Personaje.findAll({
+                attributes:['id','name','user_id'],
+                where: {
+                    user_id: req.query.id
+                   }
+            });
+            res.json(users);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+   
+}
+export const getpersonaje= async(req, res) => {
+    try {
+        const users = await Personaje.findOne({
+            attributes:['id','user_id','name','raza_id',
+            'puntos_carac_extras',
+            'puntos_hab_extras',
+            'fuerza',
+            'agilidad',
+            'destreza',
+            'constitucion',
+            'intelecto',
+            'sabiduria',
+            'espiritu',
+            'poder',
+            'belleza',
+            'frialdad'],
+            include: [
+                {
+                    association: Personaje.Users
+                },
+                {
+                    association: Personaje.Raza
+                }
+            ],
+            where: {
+                id: req.query.id
+               }
+        });
+        const estados = await Estados.findAll({
+            attributes:['id','id_personaje','titulo','texto',
+            'efecto'],
+            where: {
+                id_personaje: req.query.id
+               }
+        });
+      const datoscalculados=calculardatos(users);
+        res.json({users,estados,datoscalculados});
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const calculardatos= (users) => {
+    const vida=users.constitucion
+    const datoscalculados={
+            Salud: (users.raza.constitucion + users.constitucion) *2,
+            Mana:3 * 2,
+            Comunion:2,
+            RegenSalud:2,
+            RegenMana:3,
+            RegenComunion:1,
+            DanoFuerza:1,
+            DanoDestreza:3,
+            PoderMagico:2,
+            PoderEspiritual:2,
+    }
+  return datoscalculados
+}
+
  
 export const Register = async(req, res) => {
     const { name, email, password, confPassword } = req.body;

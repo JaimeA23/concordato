@@ -18,8 +18,8 @@ const Navbar = () => {
         <nav className="navbar is-light" role="navigation" aria-label="main navigation">
             <div className="container">
                 <div className="navbar-brand">
-                    <a className="navbar-item" href="https://bulma.io">
-                        <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" alt="logo" />
+                    <a className="navbar-item" href="https://concordato-aureo.weebly.com/">
+                        <img src="https://concordato-aureo.weebly.com/uploads/1/1/5/7/115790487/cocordato_1.png" width="112" height="28" alt="logo" />
                     </a>
 
                     <a href="/" role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -31,7 +31,7 @@ const Navbar = () => {
 
                 <div id="navbarBasicExample" className="navbar-menu">
                     <div className="navbar-start">
-                        <a href="/" className="navbar-item">
+                        <a href="/dashboard" className="navbar-item">
                             Home
                         </a>
                     </div>

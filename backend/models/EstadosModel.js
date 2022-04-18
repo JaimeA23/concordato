@@ -1,30 +1,32 @@
+
+
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
- 
+import Personajes from "../models/PersonajeModel.js";
+
 const { DataTypes } = Sequelize;
  
-const Users = db.define('users',{
-    name:{
+const Estados = db.define('estados',{
+    id_personaje:{
         type: DataTypes.STRING
     },
-    email:{
+    titulo:{
         type: DataTypes.STRING
     },
-    password:{
+    texto:{
         type: DataTypes.STRING
     },
-    rol:{
+    efecto:{
         type: DataTypes.STRING
-    },
-    refresh_token:{
-        type: DataTypes.TEXT
     }
+    
 },{
-    freezeTableName:true
+    
 });
  
 (async () => {
     await db.sync();
 })();
- 
-export default Users;
+
+export default Estados;
+

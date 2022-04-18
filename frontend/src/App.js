@@ -1,8 +1,9 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useParams  } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
+import Personaje from "./components/Personaje";
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
         <Route path="/dashboard">
           <Navbar/>
           <Dashboard/>
+        </Route>
+        <Route path="/Personaje/:idpersonaje">
+          <Navbar/>
+          <Personaje/>
         </Route>
       </Switch>
     </BrowserRouter>

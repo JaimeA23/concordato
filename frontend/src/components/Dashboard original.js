@@ -9,15 +9,11 @@ const Dashboard = () => {
     const [token, setToken] = useState('');
     const [expire, setExpire] = useState('');
     const [users, setUsers] = useState([]);
-    const [personajes, setPersonaje] = useState([]);
-    const [rol, setRol] = useState('');
-    const [id, setId] = useState('');
     const history = useHistory();
 
     useEffect(() => {
         refreshToken();
         getUsers();
-      
     }, []);
 
     const refreshToken = async () => {
@@ -26,10 +22,7 @@ const Dashboard = () => {
             setToken(response.data.accessToken);
             const decoded = jwt_decode(response.data.accessToken);
             setName(decoded.name);
-            setId(decoded.userId);
-            setRol(decoded.rol);
             setExpire(decoded.exp);
-            getcharacter(decoded.userId,decoded.rol);
         } catch (error) {
             if (error.response) {
                 history.push("/");
@@ -47,10 +40,7 @@ const Dashboard = () => {
             setToken(response.data.accessToken);
             const decoded = jwt_decode(response.data.accessToken);
             setName(decoded.name);
-            setId(decoded.userId);
-            setRol(decoded.rol);
             setExpire(decoded.exp);
-            
         }
         return config;
     }, (error) => {
@@ -65,32 +55,11 @@ const Dashboard = () => {
         });
         setUsers(response.data);
     }
-   
-    const getcharacter= async (entradaId,entradaRol) => {
-        console.log("entrada")
-         console.log(entradaRol)
-         var idfinal=entradaId
-        //nota quitar id quemado
-        if(entradaRol=='admin'){
-        idfinal='todos'
-        }
-        console.log(idfinal)
-        const response = await axiosJWT.get(process.env.REACT_APP_URL+':5000/user?id='+idfinal, { 
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        setPersonaje(response.data);
-
-     }
- 
 
     return (
         <div className="container mt-5">
-            <h1>Bienvenido: {name}</h1>
-            {
-                (rol=="admin")? 
-                <table className="table is-striped is-fullwidth">
+            <h1>Welcome Back: {name}</h1>
+            <table className="table is-striped is-fullwidth">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -108,35 +77,9 @@ const Dashboard = () => {
                     ))}
 
                 </tbody>
-                </table>
-             : <h1></h1>
-            }
-           {(personajes!=null)? 
-            <table className="table is-striped is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nombre</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {personajes.map((personaje, index) => (
-                        <tr key={personaje.id}>
-                            <td>{index + 1}</td>
-                            <td>{personaje.name}</td>
-                            <td><a href={'/personaje/'+personaje.id}>Ver perfil</a></td>
-                            
-                        </tr>
-                    ))}
-                </tbody>
             </table>
-            :<div class="loader"></div>
-         } 
         </div>
-
-        
     )
-   
 }
 
 export default Dashboard

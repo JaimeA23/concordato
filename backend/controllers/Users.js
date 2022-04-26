@@ -85,19 +85,76 @@ export const getpersonaje= async(req, res) => {
 }
 
 const calculardatos= (users) => {
-    const vida=users.constitucion
-    const datoscalculados={
-            Salud: (users.raza.constitucion + users.constitucion) *2,
-            Mana:3 * 2,
-            Comunion:2,
-            RegenSalud:2,
-            RegenMana:3,
-            RegenComunion:1,
-            DanoFuerza:1,
-            DanoDestreza:3,
-            PoderMagico:2,
-            PoderEspiritual:2,
+    const razaid=users.raza.id
+    const vida=((users.raza.constitucion + users.constitucion) * 4) + (users.raza.fuerza + users.fuerza)
+    const DanoFuerzapre=((users.raza.fuerza + users.fuerza)*0.75 + ((users.raza.destreza + users.destreza)*0.24)*((users.raza.fuerza + users.fuerza)*0.2) + (users.raza.agilidad + users.agilidad)*0.17).toFixed()*1+users.raza.bon_fuerza
+    var datoscalculados={}
+    if(razaid==2){
+
+         datoscalculados={
+            Salud: vida,
+            Mana:((users.raza.intelecto + users.intelecto) * 13) +((users.raza.sabiduria + users.sabiduria) * 5),
+            Comunion: ((users.raza.espiritu + users.espiritu) * 5) +((users.raza.sabiduria + users.sabiduria) * 2),
+           
+            DanoFuerza:DanoFuerzapre,
+            DanoDestreza:((((((((((users.raza.frialdad + users.frialdad)*0.7)+((((users.raza.intelecto + users.intelecto)*1.5)+(users.raza.sabiduria + users.sabiduria))*0.3)+(((users.raza.agilidad + users.agilidad)*3)*0.5)*2+((users.raza.destreza + users.destreza)*1.5))))-((users.raza.constitucion + users.constitucion)*0.4))*0.4)-3.1)*0.8)+users.raza.bon_destreza).toFixed()*1,
+
+            
+            RegenSalud:Math.ceil(vida*0.1),
+            RegenMana:((((((users.raza.agilidad + users.agilidad)-(users.raza.constitucion + users.constitucion)*0.5-(users.raza.fuerza + users.fuerza)*0.09)*0.33)+(((users.raza.intelecto + users.intelecto)+(users.raza.sabiduria + users.sabiduria))*0.33)*((users.raza.frialdad + users.frialdad)/3))+(users.raza.destreza + users.destreza))/1.4).toFixed()*1 ,
+            RegenComunion:(users.raza.constitucion + users.constitucion)+(users.raza.poder + users.poder)+(users.raza.espiritu + users.espiritu),
+
+            PoderMagico:((users.raza.poder + users.poder)*0.4+(0.6*(((users.raza.intelecto + users.intelecto)*0.6+(users.raza.sabiduria + users.sabiduria)*0.4)+((users.raza.frialdad + users.frialdad)*0.75+(users.raza.espiritu + users.espiritu)*0.25)+((users.raza.destreza + users.destreza)*0.75+(users.raza.agilidad + users.agilidad)*0.25)+((users.raza.constitucion + users.constitucion)*0.07)))).toFixed()*1,
+            PoderEspiritual:(((((users.raza.constitucion + users.constitucion)+(((users.raza.agilidad + users.agilidad)+(users.raza.fuerza + users.fuerza))*0.3)+((users.raza.poder + users.poder)*0.3))*0.4)+(((users.raza.espiritu + users.espiritu)+(((users.raza.sabiduria + users.sabiduria)+(users.raza.frialdad + users.frialdad))*0.3))*0.6))+users.raza.bon_espiritu).toFixed()*1,
+         
+            
     }
+
+    }
+    else if(razaid==6){
+
+         datoscalculados={
+            Salud: vida,
+            Mana:((users.raza.intelecto + users.intelecto) * 13) +((users.raza.sabiduria + users.sabiduria) * 5),
+            Comunion: ((users.raza.espiritu + users.espiritu) * 5) +((users.raza.sabiduria + users.sabiduria) * 2),
+           
+            DanoFuerza:DanoFuerzapre,
+            DanoDestreza:((((((((((users.raza.frialdad + users.frialdad)*0.7)+((((users.raza.intelecto + users.intelecto)*1.5)+(users.raza.sabiduria + users.sabiduria))*0.3)+(((users.raza.agilidad + users.agilidad)*3)*0.5)*2+((users.raza.destreza + users.destreza)*1.5))))-((users.raza.constitucion + users.constitucion)*0.4))*0.4)-3.1)*0.8)+users.raza.bon_destreza).toFixed()*1,
+
+            
+            RegenSalud:Math.ceil((vida*0.1)*2),
+            RegenMana:((((users.raza.agilidad + users.agilidad)-(users.raza.constitucion + users.constitucion)*0.5-(users.raza.fuerza + users.fuerza)*0.09)*0.33)+(((users.raza.intelecto + users.intelecto)+(users.raza.sabiduria + users.sabiduria))*0.33)*((users.raza.frialdad + users.frialdad)/3)).toFixed()*1+(users.raza.destreza + users.destreza),
+            RegenComunion:(users.raza.constitucion + users.constitucion)+(users.raza.poder + users.poder)+(users.raza.espiritu + users.espiritu),
+            
+            PoderMagico:((users.raza.poder + users.poder)*0.4+(0.6*(((users.raza.intelecto + users.intelecto)*0.6+(users.raza.sabiduria + users.sabiduria)*0.4)+((users.raza.frialdad + users.frialdad)*0.75+(users.raza.espiritu + users.espiritu)*0.25)+((users.raza.destreza + users.destreza)*0.75+(users.raza.agilidad + users.agilidad)*0.25)+((users.raza.constitucion + users.constitucion)*0.07)))).toFixed()*1,
+            PoderEspiritual:(((((users.raza.constitucion + users.constitucion)+(((users.raza.agilidad + users.agilidad)+(users.raza.fuerza + users.fuerza))*0.3)+((users.raza.poder + users.poder)*0.3))*0.4)+(((users.raza.espiritu + users.espiritu)+(((users.raza.sabiduria + users.sabiduria)+(users.raza.frialdad + users.frialdad))*0.3))*0.6))+users.raza.bon_espiritu).toFixed()*1,
+         
+            
+    }
+
+
+    }
+    else {
+         datoscalculados={
+            Salud: vida,
+            Mana:((users.raza.intelecto + users.intelecto) * 13) +((users.raza.sabiduria + users.sabiduria) * 5),
+            Comunion: ((users.raza.espiritu + users.espiritu) * 5) +((users.raza.sabiduria + users.sabiduria) * 2),
+           
+            DanoFuerza:DanoFuerzapre,
+            DanoDestreza:((((((((((users.raza.frialdad + users.frialdad)*0.7)+((((users.raza.intelecto + users.intelecto)*1.5)+(users.raza.sabiduria + users.sabiduria))*0.3)+(((users.raza.agilidad + users.agilidad)*3)*0.5)*2+((users.raza.destreza + users.destreza)*1.5))))-((users.raza.constitucion + users.constitucion)*0.4))*0.4)-3.1)*0.8)+users.raza.bon_destreza).toFixed()*1,
+
+            
+            RegenSalud:Math.ceil(vida*0.1),
+            RegenMana:((((users.raza.agilidad + users.agilidad)-(users.raza.constitucion + users.constitucion)*0.5-(users.raza.fuerza + users.fuerza)*0.09)*0.33)+(((users.raza.intelecto + users.intelecto)+(users.raza.sabiduria + users.sabiduria))*0.33)*((users.raza.frialdad + users.frialdad)/3)).toFixed()*1+(users.raza.destreza + users.destreza),
+            RegenComunion:(users.raza.constitucion + users.constitucion)+(users.raza.poder + users.poder)+(users.raza.espiritu + users.espiritu),
+            
+            PoderMagico:((users.raza.poder + users.poder)*0.4+(0.6*(((users.raza.intelecto + users.intelecto)*0.6+(users.raza.sabiduria + users.sabiduria)*0.4)+((users.raza.frialdad + users.frialdad)*0.75+(users.raza.espiritu + users.espiritu)*0.25)+((users.raza.destreza + users.destreza)*0.75+(users.raza.agilidad + users.agilidad)*0.25)+((users.raza.constitucion + users.constitucion)*0.07)))).toFixed()*1,
+            PoderEspiritual:(((((users.raza.constitucion + users.constitucion)+(((users.raza.agilidad + users.agilidad)+(users.raza.fuerza + users.fuerza))*0.3)+((users.raza.poder + users.poder)*0.3))*0.4)+(((users.raza.espiritu + users.espiritu)+(((users.raza.sabiduria + users.sabiduria)+(users.raza.frialdad + users.frialdad))*0.3))*0.6))+users.raza.bon_espiritu).toFixed()*1,
+         
+            
+    }
+    }
+    
   return datoscalculados
 }
 

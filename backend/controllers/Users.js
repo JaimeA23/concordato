@@ -2,6 +2,9 @@ import Users from "../models/UserModel.js";
 import Personaje from "../models/PersonajeModel.js";
 import Raza from "../models/RazaModel.js";
 import Estados from "../models/EstadosModel.js";
+import PerHabPrim from "../models/PerHabPrimModel.js";
+import PerHabSecun from "../models/PerHabSecunModel.js";
+import PerHabTerce from "../models/PerHabTerceModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
  
@@ -77,8 +80,42 @@ export const getpersonaje= async(req, res) => {
                 id_personaje: req.query.id
                }
         });
+        const PrimHab = await PerHabPrim.findAll({
+            attributes:['id','personaje_id','hab_id','valor'],
+            include: [
+                {
+                    association: PerHabPrim.HabPrim
+                }
+            ],
+            where: {
+                personaje_id: 1
+               }
+        });
+        const SecunHab = await PerHabSecun.findAll({
+            attributes:['id','personaje_id','hab_id','valor'],
+            include: [
+                {
+                    association: PerHabSecun.HabSecun
+                }
+            ],
+            where: {
+                personaje_id: 1
+               }
+        });
+        const TerceHab = await PerHabTerce.findAll({
+            attributes:['id','personaje_id','hab_id','valor'],
+            include: [
+                {
+                    association: PerHabTerce.HabTerce
+                }
+            ],
+            where: {
+                personaje_id: 1
+               }
+        });
       const datoscalculados=calculardatos(users);
-        res.json({users,estados,datoscalculados});
+    // nota se debe calcular aqui  const habilidades=organizarhabilidades(PrimHab,SecunHab,TerceHab);
+        res.json({users,estados,datoscalculados,PrimHab,SecunHab,TerceHab});
     } catch (error) {
         console.log(error);
     }
@@ -157,6 +194,44 @@ const calculardatos= (users) => {
     
   return datoscalculados
 }
+
+const organizarhabilidades= (PrimHab,SecunHab,TerceHab) => {
+ 
+    var habilidades = {
+        habilidadesprim: [],
+      }
+  
+    PrimHab.forEach(elementp => {
+        console.log(" prim valor");
+        console.log(elementp.valor);
+        console.log(" prim prim id");
+        console.log(elementp.hab_prim.id);
+        console.log(" prim prim name");
+        console.log(elementp.hab_prim.name);
+        
+        habilidades.push({HabPrimName: elementp.hab_prim.name});
+ 
+       // console.log(element);
+
+            SecunHab.forEach(elements => {
+                if(elements.hab_secun.id_hab_prim==elementp.hab_prim.id){
+                    console.log("secun valor");
+                    console.log(elements.valor);
+                    console.log("secun hab secun id");
+                    console.log(elements.hab_secun.id);
+                    console.log("secun hab secun id_hab_prim");
+                    console.log(elements.hab_secun.id_hab_prim);
+                    console.log("secun hab secun name");
+                    console.log(elements.hab_secun.name);
+
+                }
+                });
+        
+      });
+    
+  return habilidades
+}
+
 
  
 export const Register = async(req, res) => {

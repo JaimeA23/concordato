@@ -11,6 +11,9 @@ const Dashboard = () => {
     const [name, setName] = useState('');
     const [rol, setRol] = useState('');
     const [calculado, setCalculados] = useState('');
+    const [primhabs, setPrim] = useState([]);
+    const [secunhabs, setSecun] = useState([]);
+    const [tercehabs, setTerce] = useState([]);
     const [RazaName, setPersonajeRazaName] = useState('');
     const [id, setId] = useState('');
     const { idpersonaje } = useParams();
@@ -67,16 +70,53 @@ const Dashboard = () => {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log(response.data.datoscalculados)
+        console.log(response.data)
         setPersonaje(response.data.users);
         setEstados(response.data.estados)
         setPersonajeRazaName(response.data.users.raza);
 
+        const primario = [];
+        const secundario = [];
+        const terciario = [];
 
+        response.data.PrimHab.forEach(elementp => {
+            primario.push({
+                id: elementp.hab_prim.id,
+                name: elementp.hab_prim.name,
+                valor: elementp.valor,
+            });
+          });
+
+
+
+        response.data.SecunHab.forEach(elements => {
+            secundario.push({
+                id: elements.hab_secun.id,
+                id_prim: elements.hab_secun.id_hab_prim,
+                name: elements.hab_secun.name,
+                valor: elements.valor,
+            });
+            });
+
+        response.data.TerceHab.forEach(elementt => {
+                terciario.push({
+                    id: elementt.hab_terc.id,
+                    id_secun: elementt.hab_terc.id_hab_secun,
+                    name: elementt.hab_terc.name,
+                    valor: elementt.valor,
+                });
+                });   
 
         setCalculados(response.data.datoscalculados)
+        
+        setPrim(primario)
+        setSecun(secundario)
+        setTerce(terciario)
+
+
         console.log("get charactesssrss" + id)
         console.log(idpersonaje)
+        console.log(terciario)
     }
  
 //nota: ocultar el codigo
@@ -168,6 +208,54 @@ const Dashboard = () => {
                             <td>{RazaName.belleza +personajes.belleza}</td>
                             <td>{RazaName.frialdad +personajes.frialdad}</td>                                      
                         </tr>
+                </tbody>
+
+              
+                <th color="black" >HABILIDADES:</th>
+
+
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Habilidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {primhabs.map((estado, index) => (
+                        <tr key={estado.id}>
+                            <td><b>{Math.floor(estado.valor/2)}</b> (<i>{estado.valor}</i>)</td>
+                            <td>{estado.name}</td>
+                            <td>
+                                <tbody>
+                                    {secunhabs.map((estados, index) => (
+                                        estados.id_prim==estado.id?
+                                            <tr key={estados.id}>
+                                                <td><b>{Math.floor(estados.valor/2)}</b> (<i>{estados.valor}</i>)</td>
+                                                <td>{estados.name}</td>
+                                                <td>
+                                                    
+                                                        <tbody>
+                                                            {tercehabs.map((estadot, index) => (
+                                                                estadot.id_secun==estados.id?
+                                                                    <tr key={estadot.id}>
+                                                                         <td><b>{Math.floor(estadot.valor/2)}</b> (<i>{estadot.valor}</i>)</td>
+                                                                        <td>{estadot.name}</td>
+                                                                    </tr>
+                                                                    : <tr key={estadot.id}>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                    
+                                                    
+                                                    </td>
+                                            </tr>
+                                            : <tr key={estados.id}>
+                                             </tr>
+                                        ))}
+                                    </tbody>
+                                </td>
+                        </tr>
+                    ))}
                 </tbody>
                 
             </table>

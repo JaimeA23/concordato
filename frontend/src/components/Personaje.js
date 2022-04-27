@@ -223,7 +223,7 @@ const Dashboard = () => {
                 <tbody>
                 {primhabs.map((estado, index) => (
                         <tr key={estado.id}>
-                            <td><b>{Math.floor(estado.valor/2)}</b> (<i>{estado.valor}</i>)</td>
+                            <td><b>{Math.floor(estado.valor/3)}</b> (<i>{estado.valor}</i>)</td>
                             <td>{estado.name}</td>
                             <td>
                                 <tbody>
@@ -238,7 +238,7 @@ const Dashboard = () => {
                                                             {tercehabs.map((estadot, index) => (
                                                                 estadot.id_secun==estados.id?
                                                                     <tr key={estadot.id}>
-                                                                         <td><b>{Math.floor(estadot.valor/2)}</b> (<i>{estadot.valor}</i>)</td>
+                                                                         <td><b>{Math.floor(estadot.valor/1)}</b> (<i>{estadot.valor}</i>)</td>
                                                                         <td>{estadot.name}</td>
                                                                     </tr>
                                                                     : <tr key={estadot.id}>

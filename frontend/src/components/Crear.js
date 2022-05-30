@@ -26,7 +26,7 @@ const Crear = () => {
   const [razabasic, setRazabasic] = useState([]);
   const [options, setOptions] = useState([]);
   const [pcaracteristicas, setCaracteristicas] = useState(6);
-  const [patributos, setAtributos] = useState(16);
+  const [patributos, setAtributos] = useState(30);
   const [textoadvertencia, setAdvertencia] = useState("debes usar todos los puntos disponibles");
 
   const [ficha, setficha] = useState([]);
@@ -588,7 +588,7 @@ const Crear = () => {
       function Calcularpuntosatributos(){
 
             var sumados =0;
-            var puntos = 16;
+            var puntos = 30;
 
             primhabs.forEach(elementp => {
 
@@ -621,7 +621,7 @@ const Crear = () => {
 
 
         var sumados =0;
-        var puntos = 16;
+        var puntos = 30;
 
         primhabs.forEach(elementp => {
 

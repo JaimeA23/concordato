@@ -465,16 +465,16 @@ const Crear = () => {
           if(elementp.value==evt.target.value){
 
             razaoption= [
-              { value: 'agilidad', label: 'Agilidad' , valor: elementp.ragilidad, uservalor:0},
-              { value: 'belleza', label: 'belleza', valor: elementp.rbelleza, uservalor:0},
-              { value: 'constitucion', label: 'constitucion' , valor: elementp.rconstitucion, uservalor:0},
-              { value: 'destreza', label: 'destreza', valor: elementp.rdestreza, uservalor:0},
-              { value: 'espiritu', label: 'espiritu', valor: elementp.respiritu, uservalor:0},
-              { value: 'frialdad', label: 'frialdad', valor: elementp.rfrialdad, uservalor:0},
-              { value: 'intelecto', label: 'intelecto', valor: elementp.rintelecto, uservalor:0},
               { value: 'fuerza', label: 'fuerza' , valor: elementp.rfuerza, uservalor:0},
+              { value: 'agilidad', label: 'Agilidad' , valor: elementp.ragilidad, uservalor:0},
+              { value: 'destreza', label: 'destreza', valor: elementp.rdestreza, uservalor:0},
+              { value: 'constitucion', label: 'constitucion' , valor: elementp.rconstitucion, uservalor:0},
+              { value: 'intelecto', label: 'intelecto', valor: elementp.rintelecto, uservalor:0},
+              { value: 'sabiduria', label: 'sabiduria', valor: elementp.rsabiduria, uservalor:0},
+              { value: 'espiritu', label: 'espiritu', valor: elementp.respiritu, uservalor:0},
               { value: 'poder', label: 'poder', valor: elementp.rpoder, uservalor:0},
-              { value: 'sabiduria', label: 'sabiduria', valor: elementp.rsabiduria, uservalor:0}
+              { value: 'frialdad', label: 'frialdad', valor: elementp.rfrialdad, uservalor:0},
+              { value: 'belleza', label: 'belleza', valor: elementp.rbelleza, uservalor:0},
           
             ]
 
@@ -1141,6 +1141,10 @@ const Crear = () => {
                     </tbody>
                     
                     </table>
+
+                    <h1 style={{ color: 'red' }}>si la habilidad artistica o profesion de tu personaje no se encuentra en este listado, por favor indicarle al GM para su correspondiente creacion</h1>
+
+
         </div>
        : <div>
          <h1 style={{ color: 'red' }}>no tienes permisos, pidele a un GM que te lo habilite, brindandole tu correo de contacto</h1>

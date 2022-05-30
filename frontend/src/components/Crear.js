@@ -32,6 +32,9 @@ const Crear = () => {
   const [ficha, setficha] = useState([]);
 
 
+  const [disable, setDisable] = React.useState(false);
+
+
   useEffect(() => {
       refreshToken();
       getcharacter();
@@ -215,7 +218,7 @@ const Crear = () => {
         
         if(pcaracteristicas==0 && patributos==0 &&values.name!=""){
 
-          setAdvertencia("usa todos los puntos")
+          setAdvertencia("enviando....")
                
         var    agilidad= 0
         var    belleza= 0
@@ -387,7 +390,7 @@ const Crear = () => {
 
    
 
-
+          setDisable(true)
                   axios.post(process.env.REACT_APP_URL+':5000/crearpersonaje',{Ficha,primhab,secunhab,terhab }, {
                     headers: {
                       Authorization: `Bearer ${token}`
@@ -396,6 +399,7 @@ const Crear = () => {
                 .then(response => {
                   console.log("response")
                     console.log(response)
+                    history.push("/dashboard");
                 })
                 .catch((error) => {
                   console.log("error")
@@ -934,6 +938,7 @@ const Crear = () => {
 
 
       return (
+        (rol!="postulante")? 
         <div>
 
             <div>
@@ -942,7 +947,7 @@ const Crear = () => {
               
               </div>
 
-              <button 
+              <button  disabled={disable}
                  className="btn btn-info btn-sm"
                  onClick={() => enviar()}>
                  crear
@@ -1137,7 +1142,9 @@ const Crear = () => {
                     
                     </table>
         </div>
-      
+       : <div>
+         <h1 style={{ color: 'red' }}>no tienes permisos, pidele a un GM que te lo habilite, brindandole tu correo de contacto</h1>
+       </div>
 
         
 

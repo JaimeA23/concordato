@@ -88,6 +88,14 @@ const Dashboard = () => {
     return (
         <div className="container mt-5">
             <h1>Bienvenido: {name}</h1>
+          {  (rol=="postulante")? 
+            <div>
+                <h1 style={{ color: 'red' }}>tu cuenta aun no ha sido aceptada, pidele a un GM que te acepte, brindandole tu correo de contacto</h1>
+            </div>
+            :
+            <div>
+
+            </div>}
             {
                 (rol=="admin")? 
                 <table className="table is-striped is-fullwidth">

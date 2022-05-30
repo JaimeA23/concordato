@@ -121,6 +121,11 @@ const Dashboard = () => {
  
 //nota: ocultar el codigo
     return (
+        (rol=="postulante")? 
+        <div>
+            <h1 style={{ color: 'red' }}>tu cuenta aun no ha sido aceptada, pidele a un GM que te acepte, brindandole tu correo de contacto</h1>
+        </div>
+        :
         <div className="container mt-5">
             <h1>Bienvenido: {name}</h1>
 

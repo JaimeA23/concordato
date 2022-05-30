@@ -64,7 +64,7 @@ const Dashboard = () => {
 
     const getcharacter= async () => {
 
-        //nota quitar id quemado
+       
         const response = await axiosJWT.get(process.env.REACT_APP_URL+':5000/personaje?id='+idpersonaje, {
             headers: {
                 Authorization: `Bearer ${token}`

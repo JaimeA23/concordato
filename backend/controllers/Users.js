@@ -48,7 +48,11 @@ export const getUser = async(req, res) => {
 export const getpersonaje= async(req, res) => {
     try {
         const users = await Personaje.findOne({
-            attributes:['id','user_id','name','raza_id',
+            attributes:[
+            'id',
+            'user_id',
+            'name',
+            'raza_id',
             'puntos_carac_extras',
             'puntos_hab_extras',
             'fuerza',
@@ -88,7 +92,7 @@ export const getpersonaje= async(req, res) => {
                 }
             ],
             where: {
-                personaje_id: 1
+                personaje_id: req.query.id
                }
         });
         const SecunHab = await PerHabSecun.findAll({
@@ -99,7 +103,7 @@ export const getpersonaje= async(req, res) => {
                 }
             ],
             where: {
-                personaje_id: 1
+                personaje_id: req.query.id
                }
         });
         const TerceHab = await PerHabTerce.findAll({
@@ -110,7 +114,7 @@ export const getpersonaje= async(req, res) => {
                 }
             ],
             where: {
-                personaje_id: 1
+                personaje_id: req.query.id
                }
         });
       const datoscalculados=calculardatos(users);
@@ -119,6 +123,80 @@ export const getpersonaje= async(req, res) => {
     } catch (error) {
         console.log(error);
     }
+}
+export const Crearpersonaje= async(req, res) => {
+
+
+
+    console.log("req.body")
+    console.log(req.body.secunhab)
+    console.log(req.body.terhab)
+
+    const newpersonaje =  await Personaje.create({
+        user_id: req.body.Ficha.user_id,
+        name:req.body.Ficha.name,
+        raza_id:req.body.Ficha.raza_id,
+        puntos_carac_extras:0,
+        puntos_hab_extras:0,
+        fuerza:req.body.Ficha.fuerza,
+        agilidad:req.body.Ficha.agilidad,
+        destreza:req.body.Ficha.destreza,
+        constitucion:req.body.Ficha.constitucion,
+        intelecto:req.body.Ficha.intelecto,
+        sabiduria:req.body.Ficha.sabiduria,
+        espiritu:req.body.Ficha.espiritu,
+        poder:req.body.Ficha.poder,
+        belleza:req.body.Ficha.belleza,
+        frialdad:req.body.Ficha.frialdad,
+    });
+
+    req.body.primhab.forEach(elementp => {
+
+
+      
+        PerHabPrim.create({
+            personaje_id:newpersonaje.id,
+            hab_id:elementp.id,
+            valor:elementp.valor,
+        });
+
+
+    });
+
+
+    req.body.secunhab.forEach(elements => {
+
+
+      
+        PerHabSecun.create({
+            personaje_id:newpersonaje.id,
+            hab_id:elements.id,
+            valor:elements.valor,
+        });
+
+
+    });
+
+    req.body.terhab.forEach(elements => {
+
+
+      
+        PerHabTerce.create({
+            personaje_id:newpersonaje.id,
+            hab_id:elements.id,
+            valor:elements.valor,
+        });
+
+
+    });
+
+
+
+    res.json({msg: "Registration Successful"});
+
+
+
+  
 }
 
 const calculardatos= (users) => {

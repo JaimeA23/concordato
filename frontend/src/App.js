@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import Personaje from "./components/Personaje";
+import Crear from "./components/Crear";
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
         <Route path="/dashboard">
           <Navbar/>
           <Dashboard/>
+        </Route>
+        <Route path="/crear">
+          <Navbar/>
+          <Crear/>
         </Route>
         <Route path="/Personaje/:idpersonaje">
           <Navbar/>

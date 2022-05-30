@@ -32,7 +32,10 @@ const Navbar = () => {
                 <div id="navbarBasicExample" className="navbar-menu">
                     <div className="navbar-start">
                         <a href="/dashboard" className="navbar-item">
-                            Home
+                            Inicio
+                        </a>
+                        <a href="/crear" className="navbar-item">
+                            Crear Ficha
                         </a>
                     </div>
 

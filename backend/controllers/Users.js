@@ -204,11 +204,11 @@ const calculardatos= (users) => {
     const vida=((users.raza.constitucion + users.constitucion) * 4) + (users.raza.fuerza + users.fuerza)
     const DanoFuerzapre=((users.raza.fuerza + users.fuerza)*0.75 + ((users.raza.destreza + users.destreza)*0.24)*((users.raza.fuerza + users.fuerza)*0.2) + (users.raza.agilidad + users.agilidad)*0.17).toFixed()*1+users.raza.bon_fuerza
     var datoscalculados={}
-    
+
     var mana =((users.raza.intelecto + users.intelecto) * 13) +((users.raza.sabiduria + users.sabiduria) * 5);
     var comunion=((users.raza.espiritu + users.espiritu) * 5) +((users.raza.sabiduria + users.sabiduria) * 2); 
 
-    var danoDestreza=((((((((((users.raza.frialdad + users.frialdad)*0.7)+((((users.raza.intelecto + users.intelecto)*1.5)+(users.raza.sabiduria + users.sabiduria))*0.3)+(((users.raza.agilidad + users.agilidad)*3)*0.5)*2+((users.raza.destreza + users.destreza)*1.5))))-((users.raza.constitucion + users.constitucion)*0.4))*0.4)-3.1)*0.8)+users.raza.bon_destreza).toFixed()*1,
+    var danoDestreza=((((((((((users.raza.frialdad + users.frialdad)*0.7)+((((users.raza.intelecto + users.intelecto)*1.5)+(users.raza.sabiduria + users.sabiduria))*0.3)+(((users.raza.agilidad + users.agilidad)*3)*0.5)*2+((users.raza.destreza + users.destreza)*1.5))))-((users.raza.constitucion + users.constitucion)*0.4))*0.4)-3.1)*0.8)+users.raza.bon_destreza).toFixed()*1;
 
 
     var regenSalud=Math.ceil(vida*0.1);

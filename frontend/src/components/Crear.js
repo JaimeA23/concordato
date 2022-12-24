@@ -572,24 +572,51 @@ const Crear = () => {
 
         if(atributo.uservalor<2&&pcaracteristicas>0){
           atributo.uservalor = atributo.uservalor+1;
+        }
+        else if(atributo.uservalor<0&&pcaracteristicas==0){
 
-          var razaoption=[]
-    
+
+          var restados=0;
+          var sumados =0;
+  
           razaselect.forEach(elementp => {
     
-            razaoption.push(
-              {
-                 value: elementp.value, 
-                 label: elementp.label , 
-                 valor: elementp.valor, 
-                 uservalor:elementp.uservalor
+           if(elementp.uservalor<0){
+             restados=restados+elementp.uservalor
+           }
+           else if (elementp.uservalor>0){
+            sumados=sumados+elementp.uservalor
+           }  
               });
-              });
-    
-          setRaza(razaoption)
-          calcularpuntos()
+
+          if(sumados<7){
+            atributo.uservalor = atributo.uservalor+1;
+          }
+          else if(sumados==7&&restados<-3){
+            atributo.uservalor = atributo.uservalor+1;
+          }
+          else if(sumados==8&&restados<-6){
+            atributo.uservalor = atributo.uservalor+1;
+          }
+
 
         }
+
+        var razaoption=[]
+    
+        razaselect.forEach(elementp => {
+  
+          razaoption.push(
+            {
+               value: elementp.value, 
+               label: elementp.label , 
+               valor: elementp.valor, 
+               uservalor:elementp.uservalor
+            });
+            });
+  
+        setRaza(razaoption)
+        calcularpuntos()
 
       
       }
@@ -611,8 +638,8 @@ const Crear = () => {
 
             });
 
-      console.log(sumados);
-      console.log(restados);
+      console.log("sumados" + sumados);
+      console.log("restados" + restados);
 
 
       if(restados<-5){

@@ -382,9 +382,9 @@ const Dashboard = () => {
 
                     <thead>
                         <tr>
-                            <th>Titulo</th>
-                            <th>Texto</th>
-                            <th>Efecto</th>
+                            <th style={{ width: '20%' }}> <div style={myStylecenter}>Titulo </div></th>
+                            <th style={{ width: '60%' }}> <div style={myStylecenter}>Texto </div></th>
+                            <th style={{ width: '20%' }}><div style={myStylecenter}>Efecto</div></th>
                         </tr>
                     </thead>
                     <tbody>

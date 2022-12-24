@@ -51,6 +51,9 @@ const Personajes = db.define('personajes',{
     },
     frialdad:{
         type: DataTypes.STRING
+    },
+    urlimg:{
+        type: DataTypes.STRING
     }
 },{
     

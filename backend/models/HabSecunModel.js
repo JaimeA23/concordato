@@ -9,6 +9,9 @@ const HabSecun = db.define('hab_secuns',{
     },
     name:{
         type: DataTypes.STRING
+    },
+    hidetext:{
+        type: DataTypes.STRING
     }
 },{
     

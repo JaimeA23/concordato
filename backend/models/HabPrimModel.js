@@ -6,6 +6,9 @@ const { DataTypes } = Sequelize;
 const HabPrim = db.define('hab_prims',{
     name:{
         type: DataTypes.STRING
+    },
+    hidetext:{
+        type: DataTypes.STRING
     }
 },{
     

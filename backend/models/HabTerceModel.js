@@ -9,6 +9,9 @@ const HabTerce = db.define('hab_tercs',{
     },
     name:{
         type: DataTypes.STRING
+    },
+    hidetext:{
+        type: DataTypes.STRING
     }
 },{
     

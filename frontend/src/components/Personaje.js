@@ -84,6 +84,7 @@ const Dashboard = () => {
                 id: elementp.hab_prim.id,
                 name: elementp.hab_prim.name,
                 valor: elementp.valor,
+                hidetext: elementp.hab_prim.hidetext,
             });
           });
 
@@ -95,6 +96,7 @@ const Dashboard = () => {
                 id_prim: elements.hab_secun.id_hab_prim,
                 name: elements.hab_secun.name,
                 valor: elements.valor,
+                hidetext: elements.hab_secun.hidetext,
             });
             });
 
@@ -104,6 +106,7 @@ const Dashboard = () => {
                     id_secun: elementt.hab_terc.id_hab_secun,
                     name: elementt.hab_terc.name,
                     valor: elementt.valor,
+                    hidetext: elementt.hab_terc.hidetext,
                 });
                 });   
 
@@ -118,6 +121,12 @@ const Dashboard = () => {
         console.log(idpersonaje)
         console.log(terciario)
     }
+
+    const myStylecenter = {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      };
  
 //nota: ocultar el codigo
     return (
@@ -126,155 +135,339 @@ const Dashboard = () => {
             <h1 style={{ color: 'red' }}>tu cuenta aun no ha sido aceptada, pidele a un GM que te acepte, brindandole tu correo de contacto</h1>
         </div>
         :
-        <div className="container mt-5">
+        <div className="container mt-5"style={{
+        
+          width: '50%',
+        }}>
+
             <h1>Bienvenido: {name}</h1>
 
+            <br></br>
+
            {(personajes!=null)? 
-            <table className="table is-striped is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Raza</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <tr key={personajes.id}>
-                            <td>{personajes.name}</td>
-                            <td>{RazaName.raza_name}</td>                                      
-                        </tr>
-                </tbody>
+           <div >
+            <div style={myStylecenter}>
 
- <span><br></br><br></br><br></br></span>              
-                <th color="black" >ESTADOS:</th>
-                <table border="1">
+                <table>
 
-               
-                <thead>
-                    <tr>
-                        <th>Titulo</th>
-                        <th>Texto</th>
-                        <th>Efecto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {estados.map((estado, index) => (
-                        <tr key={estado.titulo}>
-                            <td><b>{estado.titulo}</b></td>
-                            <td>{estado.texto}</td>
-                            <td><i>{estado.efecto}</i></td>
-                        </tr>
-                    ))}
-                </tbody>
+                    <tbody>
+                            <tr key={personajes.id}>
+                                <td style={{ width: '500px' }}>
+                                            <h1 style={{ color: 'black', fontSize:"30px"}}>
+                                            {personajes.name}
+                                            </h1>
+                                            <td style={{ width: '50px' }}> </td>
+                                            <td> <div style={{ color: 'grey' }}>
+                                                {RazaName.raza_name}
+                                            </div></td>
+
+                                            <br></br>
+                                            <br></br>
+
+                                            
+                                            
+                                            <div style={{ fontSize:"15px", fontWeight : "bold"}}>
+                                            Vida, Mana Y Comunión:
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <td style={{ width: '33%' , fontSize:"12px"}}>
+                                                        Salud : {calculado.Salud}
+                                                    </td>
+
+                                                    <td style={{ width: '33%' , fontSize:"12px" }}>
+                                                        Maná : {calculado.Mana}
+                                                    </td>
+                                                        
+                                                    <td style={{ width: '33%' , fontSize:"12px" }}>
+                                                        Comunión : {calculado.Comunion}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style={{ width: '33%' , fontSize:"12px" }}>
+                                                        Regen. Salud : {calculado.RegenSalud}
+                                                    </td>
+
+                                                    <td style={{ width: '33%' , fontSize:"12px" }}>
+                                                        Regen. Maná : {calculado.RegenMana}
+                                                    </td>
+                                                        
+                                                    <td style={{ width: '33%' , fontSize:"12px" }}>
+                                                        Regen. Comunión : {calculado.RegenComunion}
+                                                    </td>
+                                                </tr>
+                                            
+
+                                            </table>
+                                            <br></br>
+
+                                            <div style={{ fontSize:"15px", fontWeight : "bold"}}>
+                                            Daño y Poder:
+                                            </div>
+                                            <table style={{ width: '100%' , fontSize:"12px" }}>
+                                                    <tr>
+                                                    <td style={{ width: '60%' , fontSize:"12px" }}>
+                                                    Daño Fuerza: {calculado.DanoFuerza}
+                                                    </td>
+
+                                                    <td style={{ width: '60%' , fontSize:"12px" }}>
+                                                    Poder Mágico : {calculado.PoderMagico}
+                                                    </td>
+                                                    
+
+                                                
+
+                                                    </tr>
+                                                
+                                                        
+                                                    <tr>
+                                                    <td style={{ width: '60%' , fontSize:"12px" }}>
+                                                    Daño Destreza: {calculado.DanoDestreza}
+                                                    </td>
+
+                                                    <td style={{ width: '60%' , fontSize:"12px" }}>
+                                                    Poder Espiritual  : {calculado.PoderEspiritual}
+                                                    </td>
+
+                                                    </tr>
+
+
+                                            </table>
+                                            <br></br>
+
+                                            <div style={{ fontSize:"15px", fontWeight : "bold"}}>
+                                            Estadisticas Base:
+                                            </div>
+                                            <table style={{ width: '100%' , fontSize:"12px" }}>
+
+                                                    <tr style={{ height: '25px'}}>
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Fuerza : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.fuerza + personajes.fuerza}
+                                                            </td>
+                                                        
+                                                        </td>
+
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Agilidad : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.agilidad + personajes.agilidad}
+                                                            </td>
+
+                                                        </td>
+
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Destreza : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.destreza + personajes.destreza}
+                                                            </td>
+                                                        </td>
+
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Constitucion : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.constitucion + personajes.constitucion}
+                                                            </td>
+                                                        </td>                               
+
+                                                    </tr>
+                                                
+                                                        
+                                                    <tr style={{ height: '25px'}}>
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Intelecto : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.intelecto + personajes.intelecto}
+                                                            </td>
+                                                        </td>
+
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Sabiduria : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.sabiduria + personajes.sabiduria}
+                                                            </td>
+                                                        </td>
+
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Espiritu : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.espiritu + personajes.espiritu}
+                                                            </td>
+                                                        </td>
+
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Poder : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.poder + personajes.poder}
+                                                            </td>
+                                                    </td>
+
+                                                    </tr>
+                                                        <tr style={{ height: '25px'}}>
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                            <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Belleza : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.belleza + personajes.belleza}
+                                                            </td>
+                                                        </td>
+
+                                                        <td style={{ width: '24%' , fontSize:"12px" }}>
+                                                        <td style={{ width: '200px' , fontSize:"12px" }}>
+                                                                Frialdad : 
+                                                            </td>
+                                                            <td style={{ width: '30%' , fontSize:"12px" }}>
+                                                                {RazaName.frialdad + personajes.frialdad}
+                                                            </td>
+                                                        </td>
+                                                    </tr>
+
+
+                                            </table>
+
+                                            <br></br>
+
+                                    </td>
+
+                                <td> 
+                                    <br></br>
+                                    <br></br>
+                                    <div style={{ width:"246px", height: "354px "}}>
+                                    <img src={personajes.urlimg} alt={personajes.urlimg} />
+                                    </div>
+                                     </td>                                    
+                            </tr>
+                    </tbody>
+
+                <span><br></br><br></br><br></br></span>          
+
+                
                 </table>
 
-<span><br></br><br></br><br></br></span>
-                <thead>
-                    <tr>
-                        <th>Salud</th>
-                        <th>Maná</th>
-                        <th>Comunión</th>
-                        <th>Regen. Salud</th>
-                        <th>Regen. Maná</th>
-                        <th>Regen. Comunión</th>
-                        <th>Daño Fuerza</th>
-                        <th>Daño Destreza</th>
-                        <th>Poder Mágico</th>
-                        <th>Poder Espiritual </th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <tr key={personajes.id}>
-                            <td>{calculado.Salud}</td>  
-                            <td>{calculado.Mana}</td>
-                            <td>{calculado.Comunion}</td>        
-                            <td>{calculado.RegenSalud}</td>
-                            <td>{calculado.RegenMana}</td>  
-                            <td>{calculado.RegenComunion}</td>
-                            <td>{calculado.DanoFuerza}</td>  
-                            <td>{calculado.DanoDestreza}</td>
-                            <td>{calculado.PoderMagico}</td>  
-                            <td>{calculado.PoderEspiritual}</td>                          
+            </div>
+
+
+            <div style={myStylecenter}>
+                <div style={{ fontSize:"20px", fontWeight : "bold"}}>
+                ESTADOS
+                </div>
+            
+            </div>
+            <br></br>
+           
+
+
+
+            <div style={myStylecenter}>   
+            <table border="1" style={{ width: '70%' }}>
+
+
+                    <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Texto</th>
+                            <th>Efecto</th>
                         </tr>
-                </tbody>
-                <thead>
-                    <tr>
-                        <th>fuerza</th>
-                        <th>agilidad</th>
-                        <th>destreza</th>
-                        <th>constitucion</th>
-                        <th>intelecto</th>
-                        <th>sabiduria</th>
-                        <th>espiritu</th>
-                        <th>poder</th>
-                        <th>belleza</th>
-                        <th>frialdad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <tr key={personajes.id}>
-                            <td>{RazaName.fuerza + personajes.fuerza} </td>
-                            <td>{RazaName.agilidad +personajes.agilidad}</td>      
-                            <td>{RazaName.destreza +personajes.destreza}</td>
-                            <td>{RazaName.constitucion +personajes.constitucion}</td>      
-                            <td>{RazaName.intelecto +personajes.intelecto}</td>
-                            <td>{RazaName.sabiduria +personajes.sabiduria}</td>      
-                            <td>{RazaName.espiritu +personajes.espiritu}</td>
-                            <td>{RazaName.poder +personajes.poder}</td>      
-                            <td>{RazaName.belleza +personajes.belleza}</td>
-                            <td>{RazaName.frialdad +personajes.frialdad}</td>                                      
-                        </tr>
-                </tbody>
+                    </thead>
+                    <tbody>
+                    {estados.map((estado, index) => (
+                            <tr key={estado.titulo}>
+                                <td><b>{estado.titulo}</b></td>
+                                <td>{estado.texto}</td>
+                                <td><i>{estado.efecto}</i></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    </table>
+            
 
-              
-                <th color="black" >HABILIDADES:</th>
+            </div>
+
+         
 
 
-                <thead>
-                    <tr>
-                        <th>Valor</th>
-                        <th>Habilidad</th>
-                    </tr>
-                </thead>
+         
+            
+
+            
+            <span><br></br><br></br><br></br></span>
+
+            <div style={myStylecenter}>
+                <div style={{ fontSize:"20px", fontWeight : "bold"}}>
+                HABILIDADES
+                </div>
+            
+            </div>
+
+            <br></br>
+
+            <div style={myStylecenter}>
+            <table border="1" style={{ width: '800px' }}>
                 <tbody>
                 {primhabs.map((estado, index) => (
                         <tr key={estado.id}>
-                            <td><b>{Math.floor(estado.valor/3)}</b> </td>
-                            <td>{estado.name}</td>
+                            <td style={{ width: '250px' }}><abbr title={estado.hidetext}>{estado.name}</abbr>: <b>{Math.floor(estado.valor/3)}</b></td>
                             <td>
-                                <tbody>
+                            <table border="1" style={{ width: '550px' }}>
+                            <tbody >
                                     {secunhabs.map((estados, index) => (
                                         estados.id_prim==estado.id?
                                             <tr key={estados.id}>
-                                                <td><b>{Math.floor(estados.valor/2)}</b> </td>
-                                                <td>{estados.name}</td>
+                                                <td style={{ width: '300px' }}><abbr title={estados.hidetext}>{estados.name}</abbr>: <b>{Math.floor(estados.valor/2)}</b></td>
                                                 <td>
-                                                    
+                                                <table border="1" style={{ width: '250px' }}>
                                                         <tbody>
                                                             {tercehabs.map((estadot, index) => (
                                                                 estadot.id_secun==estados.id?
                                                                     <tr key={estadot.id}>
-                                                                         <td><b>{Math.floor(estadot.valor/1)}</b> </td>
-                                                                        <td>{estadot.name}</td>
+                                                                        <td><abbr title={estadot.hidetext}>{estadot.name}</abbr> : <b>{Math.floor(estadot.valor/1)}</b></td>
                                                                     </tr>
                                                                     : <tr key={estadot.id}>
                                                                     </tr>
                                                                 ))}
                                                             </tbody>
                                                     
-                                                    
+                                                </table>   
                                                     </td>
                                             </tr>
                                             : <tr key={estados.id}>
-                                             </tr>
+                                            </tr>
                                         ))}
                                     </tbody>
+                                </table>
+                                
                                 </td>
                         </tr>
                     ))}
                 </tbody>
-                
+
             </table>
-            
+
+            </div>
+        
+
+  
+
+            <br></br>
+            </div>
             :<div class="loader"></div>
          } 
         </div>

@@ -33,6 +33,9 @@ const Crear = () => {
 
 
   const [disable, setDisable] = React.useState(false);
+  const [pagnumber, setpage] = React.useState(1);
+
+  const [Raceoriginalvalue, setRace] = React.useState("");
 
 
   useEffect(() => {
@@ -95,12 +98,9 @@ const Crear = () => {
   });
     const [values, setValues] = React.useState({
         name: "",
-        password: "",
+        urlimg: "",
       });
       const [gender, setGender] = useState("");
-
-
-
       const getcharacter= async () => {
 
         //nota quitar id quemado
@@ -113,7 +113,26 @@ const Crear = () => {
         const razasoption=[]
 
         response.data.razas.forEach(elementp => {
-          console.log(elementp)
+
+          if(razasoption.length==0){
+
+            razasoption.push({
+              value: "Selecciona Raza",
+              label: "Selecciona Raza",
+              id: "Selecciona Raza",
+              ragilidad: 0,
+              rbelleza: 0,
+              rconstitucion: 0,
+              rdestreza: 0,
+              respiritu: 0,
+              rfrialdad: 0,
+              rfuerza: 0,
+              rintelecto: 0,
+              rpoder: 0,
+              rsabiduria: 0,
+          });
+
+          }
 
           razasoption.push({
             value: elementp.raza_name,
@@ -142,6 +161,7 @@ const Crear = () => {
             primario.push({
                 id: elementp.id,
                 name: elementp.name,
+                hidetext: elementp.hidetext,
                 valor: 0,
             });
           });
@@ -153,6 +173,7 @@ const Crear = () => {
                 id: elements.id,
                 id_prim: elements.id_hab_prim,
                 name: elements.name,
+                hidetext: elements.hidetext,
                 valor: 0,
             });
             });
@@ -162,6 +183,7 @@ const Crear = () => {
                     id: elementt.id,
                     id_secun: elementt.id_hab_secun,
                     name: elementt.name,
+                    hidetext: elementt.hidetext,
                     valor: 0,
                 });
                 });   
@@ -176,18 +198,15 @@ const Crear = () => {
 
         setOptions(razasoption)
 
-        console.log("terciario")
-        console.log(terciario)
+        console.log("primario")
+        console.log(primario)
        
       }
-
-
-
-
       function handleChange2(evt) {
 
        console.log("SSDSADASD");
        console.log(values.name);
+       console.log(values.urlimg);
         const { target } = evt;
         const { name, value } = target;
         setGender(evt.target.value);
@@ -204,19 +223,34 @@ const Crear = () => {
    
       }
 
+      
+      function nextPage() {
+        console.log("cambiando pagina")
+        
+        
+        if(pcaracteristicas==0  &&values.name!=""&&values.urlimg!=""){
 
+          setpage(2);
 
+        }
+        else{
+          
+          if(name==""){
+            setAdvertencia("el nombre no puede quedar vacio")
+          }
 
+        setAdvertencia("usa todos los puntos")
+ 
+        }
 
-
-
-
-
+         
+      }
+      
       function enviar() {
         console.log("enviando")
         
         
-        if(pcaracteristicas==0 && patributos==0 &&values.name!=""){
+        if(pcaracteristicas==0 && patributos==0 &&values.name!=""&&values.urlimg!=""){
 
           setAdvertencia("enviando....")
                
@@ -296,6 +330,7 @@ const Crear = () => {
             { 
               user_id: id,
               name: values.name, 
+              urlimg: values.urlimg, 
               raza_id: razabasic.raza_id,
               agilidad: agilidad,
               belleza: belleza,
@@ -427,16 +462,6 @@ const Crear = () => {
 
          
       }
-
-
-
-
-
-
-
-
-
-
       function handleChange(evt) {
         /*
           evt.target es el elemento que ejecuto el evento
@@ -456,11 +481,21 @@ const Crear = () => {
         // Sincroniza el estado de nuevo
         setValues(newValues);
         */
+       
+
+        if(evt.target.value!="Selecciona Raza"){
+
+          
+
+        setRace(evt.target.value)
+
         var razaoption=[]
+
         var razaoptionbasic=[]
 
         
         options.forEach(elementp => {
+
          
           if(elementp.value==evt.target.value){
 
@@ -478,6 +513,8 @@ const Crear = () => {
           
             ]
 
+            setCaracteristicas(6);
+
 
             razaoptionbasic = {raza_id: elementp.id}
 
@@ -494,11 +531,18 @@ const Crear = () => {
         setRaza(razaoption)
         setRazabasic(razaoptionbasic)
 
+          
+
+        }
+        else{
+          evt.target.value=Raceoriginalvalue
+
+        }
+        
 
 
 
       }
-
       function resta(atributo) {
 
         if(atributo.uservalor>-2){
@@ -787,6 +831,7 @@ const Crear = () => {
                 id: elementp.id,
                 name: elementp.name,
                 valor: elementp.valor,
+                hidetext: elementp.hidetext,
               });
           });
           setPrim(atributooption)
@@ -809,6 +854,7 @@ const Crear = () => {
                 id: elementp.id,
                 name: elementp.name,
                 valor: elementp.valor,
+                hidetext: elementp.hidetext,
               });
           });
           setPrim(atributooption)
@@ -837,6 +883,7 @@ const Crear = () => {
                 id_prim: elements.id_prim,
                 name: elements.name,
                 valor: elements.valor,
+                hidetext: elements.hidetext,
               });
           });
           setSecun(atributooption)
@@ -861,6 +908,7 @@ const Crear = () => {
                 id_prim: elements.id_prim,
                 name: elements.name,
                 valor: elements.valor,
+                hidetext: elements.hidetext,
               });
           });
           setSecun(atributooption)
@@ -889,6 +937,7 @@ const Crear = () => {
                 id_secun: elementt.id_secun,
                 name: elementt.name,
                 valor: elementt.valor,
+                hidetext: elementt.hidetext,
               });
           });
           setTerce(atributooption)
@@ -918,6 +967,7 @@ const Crear = () => {
                 id_secun: elementt.id_secun,
                 name: elementt.name,
                 valor: elementt.valor,
+                hidetext: elementt.hidetext,
               });
           });
           setTerce(atributooption)
@@ -930,7 +980,25 @@ const Crear = () => {
        }
 
 
+       const myStyle = {
+        color: "white",
+        backgroundColor: "DodgerBlue",
+        padding: "10px",
+        fontFamily: "Arial"
+      };
 
+     //  <h1 style={myStyle}>Hello Style!</h1>
+
+     const LineGruesa = ({ color }) => (
+      <hr
+          style={{
+              color: color,
+              backgroundColor: color,
+              height: 5,
+              width: '800px'
+          }}
+      />
+  );
 
 
 
@@ -938,8 +1006,11 @@ const Crear = () => {
 
 
       return (
-        (rol!="postulante")? 
-        <div>
+        (rol!="postulante",pagnumber==1)? 
+        <div className="container mt-5" style={{
+        
+          width: '50%',
+        }}>
 
             <div>
             <h1 style={{ color: 'red' }}>{textoadvertencia}</h1>
@@ -947,42 +1018,84 @@ const Crear = () => {
               
               </div>
 
-              <button  disabled={disable}
-                 className="btn btn-info btn-sm"
-                 onClick={() => enviar()}>
-                 crear
-                </button>
-
-
-            <form onSubmit={handleChange2}>
-                <label htmlFor="email">Nombre </label>
-                <input
-                  id="name"
-                  name="name"
-                  type="name"
-                  value={values.name}
-                  onChange={handleChange2}
-                />
-            <div className="App">
+              <br></br>
               
-           
-    </div>
-    
+              <table style={{ width:"100% "}}>
+                  <tbody>
+                      <tr>
+                          <td>
 
-            </form>
 
-            <div className="select-container">
-            <select onChange={handleChange}>
-              {options.map((option) => (
-                <option value={option.value}>{option.label}</option>
-              ))}
-            </select>
-            </div>
+                            <form onSubmit={handleChange2}>
+                              <label htmlFor="email">Nombre </label>
+                              <input
+                                id="name"
+                                name="name"
+                                type="name"
+                                value={values.name}
+                                onChange={handleChange2}
+                              />
+                               <br></br>
+                               <label htmlFor="email">Url de Imagen</label>
+                              <input
+                                id="urlimg"
+                                name="urlimg"
+                                type="urlimg"
+                                value={values.urlimg}
+                                onChange={handleChange2}
+                              />
+                                <div className="App">
+                                </div>
+                               
 
-            <div>
+                            </form>
 
-              Puntos disponibles = {pcaracteristicas}
-            </div>
+                            
+
+
+                                <br></br>
+
+                                <div className="select-container">
+                                <select onChange={handleChange}>
+                                  {options.map((option) => (
+                                    <option value={option.value}>{option.label}</option>
+                                  ))}
+                                </select>
+                                </div>  
+
+                                <br></br>
+                                <br></br>
+
+                                <div>
+
+                                  Puntos disponibles = {pcaracteristicas}
+                                </div>
+                            
+
+
+                          </td>
+                          <td>
+                          <br></br>
+
+
+                              <button  disabled={disable}
+                              className="btn btn-info btn-sm"
+                              onClick={() => nextPage()}>
+                              Siguiente
+                              </button>
+                            
+
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+
+          
+
+          
+
+
+            <br></br>
 
             <div>
 
@@ -1029,124 +1142,172 @@ const Crear = () => {
 
 
             </div>
-
-
-
-
-            <th color="black" >ATRIBUTOS: {patributos}</th>
-            <p color="black" >valor principal=3</p>
-            <p color="black" >valor secundaria=2</p>
-            <p color="black" >valor terciaria=1</p>
-            <table border="1">
-              
-                    <thead>
-                        <tr>
-                            <th>Valor</th>
-                            <th>Habilidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {primhabs.map((estado, index) => (
-                            <tr key={estado.id}>
-                                <td>
-                                <td><b>{Math.floor(estado.valor/3)}</b> (<i>{estado.valor}</i>)</td>
-                                <td>{estado.name}</td>
-                                <td>
-                                        <button 
-                                            className="btn btn-info btn-sm"
-                                            onClick={() => restaAtributo(estado)}
-                                            >
-                                            -
-                                        </button>
-                                        &nbsp;
-                                        <button 
-                                            className="btn btn-info btn-sm"
-                                            onClick={() => sumaAtributo(estado)}
-                                            >
-                                            +
-                                        </button>
-                                        
-                                    </td>
-                                </td>
-
-                                <td>
-                                <table border="1">
-                                       <tbody>
-                                        {secunhabs.map((estados, index) => (
-                                            estados.id_prim==estado.id?
-                                                <tr key={estados.id}>
-                                                    <td>
-                                                    <td><b>{Math.floor(estados.valor/2)}</b> (<i>{estados.valor}</i>)</td>
-                                                    <td>{estados.name}</td>
-                                                    <td>
-                                                            <button 
-                                                                className="btn btn-info btn-sm"
-                                                                onClick={() => restaAtributo2(estado,estados)}
-                                                                >
-                                                                -
-                                                            </button>
-                                                            &nbsp;
-                                                            <button 
-                                                                className="btn btn-info btn-sm"
-                                                                onClick={() => sumaAtributo2(estado,estados)}
-                                                                >
-                                                                +
-                                                            </button>
-                                                            
-                                                        </td>
-                                                    </td>
-                                                    <td>
-                                                    <table border="1">
-                                                            <tbody>
-                                                                {tercehabs.map((estadot, index) => (
-                                                                    estadot.id_secun==estados.id?
-                                                                        <tr key={estadot.id}>
-                                                                            <td>
-                                                                            <td><b>{Math.floor(estadot.valor/1)}</b> (<i>{estadot.valor}</i>)</td>
-                                                                            <td>{estadot.name}</td>
-                                                                            <td>
-                                                                                <button 
-                                                                                    className="btn btn-info btn-sm"
-                                                                                    onClick={() => restaAtributo3(estados,estadot)}
-                                                                                    >
-                                                                                    -
-                                                                                </button>
-                                                                                &nbsp;
-                                                                                <button 
-                                                                                    className="btn btn-info btn-sm"
-                                                                                    onClick={() => sumaAtributo3(estados,estadot)}
-                                                                                    >
-                                                                                    +
-                                                                                </button>
-                                                                                
-                                                                            </td>
-                                                                            </td>
-                                                                        </tr>
-                                                                        : <tr key={estadot.id}>
-                                                                        </tr>
-                                                                    ))}
-                                                                </tbody>
-                                                        
-                                                                </table>
-                                                        </td>
-                                                </tr>
-                                                : <tr key={estados.id}>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                  </table>
-                                    </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                    
-                    </table>
-
-                    <h1 style={{ color: 'red' }}>si la habilidad artistica o profesion de tu personaje no se encuentra en este listado, por favor indicarle al GM para su correspondiente creacion</h1>
-
-
+            <br></br>
+            <br></br>
         </div>
-       : <div>
+       : (rol!="postulante",pagnumber==2)? <div className="container mt-5" style={{width: '50%',}}>
+
+          <div>
+          <h1 style={{ color: 'red' }}>{textoadvertencia}</h1>
+          </div>
+
+
+
+          <table style={{ width:"100% "}}>
+                  <tbody>
+                      <tr>
+                          <td>
+                          <br></br>
+                          <br></br>
+
+
+                          <th color="black" >ATRIBUTOS: {patributos}</th>
+                          <br></br>
+                              <p color="black" >Valor por  atributo principal=3</p>
+                          <br></br>
+                              <p color="black" >Valor por  atributo secundario=2</p>
+                          <br></br>
+                              <p color="black" >Valor por  atributo terciario=1</p>
+
+                          <br></br>
+                                                
+                          </td>
+                          <td>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+
+
+                          <button  disabled={disable}
+                              className="btn btn-info btn-sm"
+                              onClick={() => enviar()}>
+                              Enviar
+                          </button>
+                            
+
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+
+        
+
+            <LineGruesa color="black" />
+
+          <table border="1" style={{ width:"800px"}}>
+            
+
+                  <tbody>
+                  {primhabs.map((estado, index) => (
+                          <tr key={estado.id}>
+                              <td >
+                              <td style={{ width:"35px"}}><b>{Math.floor(estado.valor/3)}</b> (<i>{estado.valor}</i>)</td>
+                              <td style={{ width:"170px"}}> <abbr title={estado.hidetext}>{estado.name}</abbr>. </td>
+                              <td  style={{ width:"45px"}}  >
+                                      <button 
+                                          className="btn btn-info btn-sm"
+                                          onClick={() => restaAtributo(estado)}
+                                          >
+                                          -
+                                      </button>
+                                      &nbsp;
+                                      <button 
+                                          className="btn btn-info btn-sm"
+                                          onClick={() => sumaAtributo(estado)}
+                                          >
+                                          +
+                                      </button>
+                                      
+                                  </td>
+                              </td>
+
+                              <td>
+                              <table border="1">
+                                     <tbody>
+                                      {secunhabs.map((estados, index) => (
+                                          estados.id_prim==estado.id?
+                                              <tr key={estados.id}>
+                                                  <td style={{ width:"250px"}}>
+                                                  <td style={{ width:"50px"}}><b>{Math.floor(estados.valor/2)}</b> (<i>{estados.valor}</i>)</td>
+                                                  <td style={{ width:"150px"}}> <abbr title={estados.hidetext}>{estados.name}</abbr>.</td>
+                                                  <td style={{ width:"50px"}}>
+                                                          <button 
+                                                              className="btn btn-info btn-sm"
+                                                              onClick={() => restaAtributo2(estado,estados)}
+                                                              >
+                                                              -
+                                                          </button>
+                                                          &nbsp;
+                                                          <button 
+                                                              className="btn btn-info btn-sm"
+                                                              onClick={() => sumaAtributo2(estado,estados)}
+                                                              >
+                                                              +
+                                                          </button>
+                                                          
+                                                      </td>
+                                                  </td>
+                                                  <td>
+                                                  <table border="1" style={{ width:"300px"}}>
+                                                          <tbody>
+                                                              {tercehabs.map((estadot, index) => (
+                                                                  estadot.id_secun==estados.id?
+                                                                      <tr key={estadot.id}>
+                                                                          <td>
+                                                                          <td style={{ width:"50px"}}><b>{Math.floor(estadot.valor/1)}</b> (<i>{estadot.valor}</i>)</td>
+                                                                          <td style={{ width:"200px"}}> <abbr title={estadot.hidetext}>{estadot.name}</abbr>.</td>
+                                                                          <td  style={{ width:"50px"}}>
+                                                                              <button 
+                                                                                  className="btn btn-info btn-sm"
+                                                                                  onClick={() => restaAtributo3(estados,estadot)}
+                                                                                  >
+                                                                                  -
+                                                                              </button>
+                                                                              &nbsp;
+                                                                              <button 
+                                                                                  className="btn btn-info btn-sm"
+                                                                                  onClick={() => sumaAtributo3(estados,estadot)}
+                                                                                  >
+                                                                                  +
+                                                                              </button>
+                                                                              
+                                                                          </td>
+                                                                          </td>
+                                                                      </tr>
+                                                                      : <tr key={estadot.id}>
+                                                                      </tr>
+                                                                  ))}
+                                                              </tbody>
+                                                      
+                                                              </table>
+                                                      </td>
+                                              </tr>
+                                              : <tr key={estados.id}>
+                                              </tr>
+                                          ))}
+                                      </tbody>
+                                </table>
+                                  </td>
+                             
+                          </tr>
+                          
+                          
+                      ))}
+                      
+                  </tbody>
+                  
+                  </table>
+
+                  <br></br>
+
+                  <h1 style={{ color: 'red',width: '100%'}}>si la habilidad artistica o profesion de tu personaje no se encuentra en este listado, por favor indicarle al GM para su correspondiente creacion</h1>
+            <br></br>
+            <br></br>  
+          </div>
+
+      :<div>
          <h1 style={{ color: 'red' }}>no tienes permisos, pidele a un GM que te lo habilite, brindandole tu correo de contacto</h1>
        </div>
 

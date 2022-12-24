@@ -64,7 +64,8 @@ export const getpersonaje= async(req, res) => {
             'espiritu',
             'poder',
             'belleza',
-            'frialdad'],
+            'frialdad',
+            'urlimg'],
             include: [
                 {
                     association: Personaje.Users
@@ -148,6 +149,7 @@ export const Crearpersonaje= async(req, res) => {
         poder:req.body.Ficha.poder,
         belleza:req.body.Ficha.belleza,
         frialdad:req.body.Ficha.frialdad,
+        urlimg:req.body.Ficha.urlimg,
     });
 
     req.body.primhab.forEach(elementp => {

@@ -203,12 +203,13 @@ export const Crearpersonaje= async(req, res) => {
 
 const calculardatos= (users) => {
     const razaid=users.raza.id
-    const vida=((users.raza.constitucion + users.constitucion) * 4) + (users.raza.fuerza + users.fuerza)
+    var vida=((((((users.raza.constitucion + users.constitucion)*2)+(users.raza.fuerza + users.fuerza)+((users.raza.agilidad + users.agilidad)*0.5))*1.3)+u(sers.raza.espiritu + users.espiritu)+((users.raza.poder + users.poder)*0.5))+(users.raza.bon_salud + users.bon_salud)).toFixed()*1;
     const DanoFuerzapre=((users.raza.fuerza + users.fuerza)*0.75 + ((users.raza.destreza + users.destreza)*0.24)*((users.raza.fuerza + users.fuerza)*0.2) + (users.raza.agilidad + users.agilidad)*0.17).toFixed()*1+users.raza.bon_fuerza
     var datoscalculados={}
 
-    var mana =((users.raza.intelecto + users.intelecto) * 13) +((users.raza.sabiduria + users.sabiduria) * 5);
-    var comunion=((users.raza.espiritu + users.espiritu) * 5) +((users.raza.sabiduria + users.sabiduria) * 2); 
+    var mana =((((((((users.raza.intelecto + users.intelecto)*2.5)+((users.raza.poder + users.poder)*2))*2)+(((users.raza.sabiduria + users.sabiduria)+(users.raza.espiritu + users.espiritu))*1.5)+(users.raza.constitucion + users.constitucion)))*1.6)+(users.raza.bon_mana + users.bon_mana)).toFixed()*1;
+    
+    var comunion=(((((((users.raza.espiritu + users.espiritu)*5)+((users.raza.sabiduria + users.sabiduria)*2))*2)+((users.raza.fuerza + users.fuerza)+((users.raza.constitucion + users.constitucion)*0.5)+(users.raza.poder + users.poder)))/2.2)+(users.raza.bon_com + users.bon_com)).toFixed()*1;
 
     var danoDestreza=((((((((((users.raza.frialdad + users.frialdad)*0.7)+((((users.raza.intelecto + users.intelecto)*1.5)+(users.raza.sabiduria + users.sabiduria))*0.3)+(((users.raza.agilidad + users.agilidad)*3)*0.5)*2+((users.raza.destreza + users.destreza)*1.5))))-((users.raza.constitucion + users.constitucion)*0.4))*0.4)-3.1)*0.8)+users.raza.bon_destreza).toFixed()*1;
 
@@ -234,6 +235,12 @@ const calculardatos= (users) => {
     if(razaid==6){
 
         regenSalud= Math.ceil((vida*0.1)*2);
+    }
+
+    if(razaid==8){
+
+        vida=(((((((users.raza.constitucion + users.constitucion)*2)+(users.raza.fuerza + users.fuerza)+((users.raza.agilidad + users.agilidad)*0.5))*1.3)+(users.raza.espiritu + users.espiritu)+((users.raza.poder + users.poder)*0.5))+(users.raza.bon_salud + users.bon_salud))*((users.raza.frialdad + users.frialdad)/10)).toFixed()*1;
+
     }
 
 

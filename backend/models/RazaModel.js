@@ -45,7 +45,17 @@ const Raza = db.define('razas',{
     },
     bon_espiritu:{
         type: DataTypes.STRING
+    },
+    bon_mana:{
+        type: DataTypes.STRING
+    },
+    bon_salud:{
+        type: DataTypes.STRING
+    },
+    bon_com:{
+        type: DataTypes.STRING
     }
+
 },{
     
 });

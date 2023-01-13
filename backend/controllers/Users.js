@@ -203,7 +203,7 @@ export const Crearpersonaje= async(req, res) => {
 
 const calculardatos= (users) => {
     const razaid=users.raza.id
-    var vida=((((((users.raza.constitucion + users.constitucion)*2)+(users.raza.fuerza + users.fuerza)+((users.raza.agilidad + users.agilidad)*0.5))*1.3)+(sers.raza.espiritu + users.espiritu)+((users.raza.poder + users.poder)*0.5))+(users.raza.bon_salud)).toFixed()*1;
+    var vida=((((((users.raza.constitucion + users.constitucion)*2)+(users.raza.fuerza + users.fuerza)+((users.raza.agilidad + users.agilidad)*0.5))*1.3)+(users.raza.espiritu + users.espiritu)+((users.raza.poder + users.poder)*0.5))+(users.raza.bon_salud)).toFixed()*1;
     const DanoFuerzapre=((users.raza.fuerza + users.fuerza)*0.75 + ((users.raza.destreza + users.destreza)*0.24)*((users.raza.fuerza + users.fuerza)*0.2) + (users.raza.agilidad + users.agilidad)*0.17).toFixed()*1+users.raza.bon_fuerza
     var datoscalculados={}
 

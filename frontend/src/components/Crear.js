@@ -647,10 +647,10 @@ const Crear = () => {
 
 
       if(restados<-5){
-        puntos=8;
+        puntos=(puntosbasicos+2);
        }
        else if(restados<-2){
-        puntos=7;
+        puntos=(puntosbasicos+1);
       }
 
       puntos=puntos-sumados

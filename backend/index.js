@@ -14,6 +14,7 @@ var allowCrossDomain = function(req, res, next) {
     const corsWhitelist = [
         'http://localhost:3000',
         'http://3.145.26.185:3000',
+        '*',
     ];
 
     console.log(req.headers.origin);

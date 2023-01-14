@@ -7,6 +7,7 @@ import { useHistory , useParams} from 'react-router-dom';
 import Select from 'react-select'
 
 const Crear = () => {
+  const puntosbasicos=5;
    
   const [token, setToken] = useState('');
   const [expire, setExpire] = useState('');
@@ -25,7 +26,7 @@ const Crear = () => {
   const [razaselect, setRaza] = useState([]);
   const [razabasic, setRazabasic] = useState([]);
   const [options, setOptions] = useState([]);
-  const [pcaracteristicas, setCaracteristicas] = useState(6);
+  const [pcaracteristicas, setCaracteristicas] = useState(puntosbasicos);
   const [patributos, setAtributos] = useState(30);
   const [textoadvertencia, setAdvertencia] = useState("debes usar todos los puntos disponibles");
 
@@ -36,6 +37,9 @@ const Crear = () => {
   const [pagnumber, setpage] = React.useState(1);
 
   const [Raceoriginalvalue, setRace] = React.useState("");
+
+
+
 
 
   useEffect(() => {
@@ -513,7 +517,7 @@ const Crear = () => {
           
             ]
 
-            setCaracteristicas(6);
+            setCaracteristicas((puntosbasicos));
 
 
             razaoptionbasic = {raza_id: elementp.id}
@@ -589,13 +593,13 @@ const Crear = () => {
            }  
               });
 
-          if(sumados<7){
+          if(sumados<(puntosbasicos+1)){
             atributo.uservalor = atributo.uservalor+1;
           }
-          else if(sumados==7&&restados<-3){
+          else if(sumados==(puntosbasicos+1)&&restados<-(puntosbasicos-3)){
             atributo.uservalor = atributo.uservalor+1;
           }
-          else if(sumados==8&&restados<-6){
+          else if(sumados==(puntosbasicos+2)&&restados<-puntosbasicos){
             atributo.uservalor = atributo.uservalor+1;
           }
 
@@ -624,7 +628,7 @@ const Crear = () => {
 
         var restados=0;
         var sumados =0;
-        var puntos = 6;
+        var puntos = (puntosbasicos);
 
         razaselect.forEach(elementp => {
   

@@ -1065,8 +1065,11 @@ console.log(cntPersonajesValido);
 console.log(cantidadfichasusadas);
 console.log(cantidadfichasusadas<cntPersonajesValido);
 
+console.log("pagnumber");
+console.log(pagnumber);
+
       return (
-        (rol!="postulante",pagnumber==1,(cantidadfichasusadas<cntPersonajesValido))? 
+        (rol!="postulante" && pagnumber==1 && (cantidadfichasusadas<cntPersonajesValido))? 
         <div className="container mt-5" style={{
         
           width: '50%',
@@ -1205,7 +1208,7 @@ console.log(cantidadfichasusadas<cntPersonajesValido);
             <br></br>
             <br></br>
         </div>
-       : (rol!="postulante",pagnumber==2,(cantidadfichasusadas<cntPersonajesValido))? <div className="container mt-5" style={{width: '50%',}}>
+       : (rol!="postulante" && pagnumber==2 && (cantidadfichasusadas<cntPersonajesValido))? <div className="container mt-5" style={{width: '50%',}}>
 
           <div>
           <h1 style={{ color: 'red' }}>{textoadvertencia}</h1>
@@ -1367,7 +1370,7 @@ console.log(cantidadfichasusadas<cntPersonajesValido);
             <br></br>  
           </div>
 
-        :(rol!="postulante",(cantidadfichasusadas>=cntPersonajesValido))? <div>
+        :(rol!="postulante" && (cantidadfichasusadas>=cntPersonajesValido))? <div>
         <h1 style={{ color: 'red' }}>ya has creado la maxima cantidad de personajes</h1>
         </div>
 

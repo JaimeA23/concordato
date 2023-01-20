@@ -10,6 +10,8 @@ const Crear = () => {
   const puntosbasicos=5;
    
   const [token, setToken] = useState('');
+  const [cntPersonajesValido, setCntPersonajesValido] = useState('');
+  const [cantidadfichasusadas, setCntdFichas] = useState('');
   const [expire, setExpire] = useState('');
   const history = useHistory();
   const [name, setName] = useState('');
@@ -45,6 +47,8 @@ const Crear = () => {
   useEffect(() => {
       refreshToken();
       getcharacter();
+
+
   }, []);
 
 
@@ -65,6 +69,25 @@ const Crear = () => {
 
 
 
+  const getcharacters= async (entradaId,entradaRol) => {
+
+     var idfinal=entradaId
+
+    if(entradaRol=='admin'){
+    idfinal='todos'
+    }
+    console.log(idfinal)
+    const response = await axiosJWT.get(process.env.REACT_APP_URL+':5000/user?id='+idfinal, { 
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    setCntdFichas(response.data.length);
+
+
+ }
+
 
   const refreshToken = async () => {
       try {
@@ -75,6 +98,8 @@ const Crear = () => {
           setId(decoded.userId);
           setRol(decoded.rol);
           setExpire(decoded.exp);
+          setCntPersonajesValido(decoded.cntpersonajes);
+          getcharacters(decoded.userId,decoded.rol);
       } catch (error) {
           if (error.response) {
               history.push("/");
@@ -95,6 +120,7 @@ const Crear = () => {
           setId(decoded.userId);
           setRol(decoded.rol);
           setExpire(decoded.exp);
+          setCntPersonajesValido(decoded.cntpersonajes);
       }
       return config;
   }, (error) => {
@@ -1032,12 +1058,15 @@ const Crear = () => {
   );
 
 
-
- 
-
+ // cantidadfichasusadas
+//  cntPersonajesValido
+console.log("cntPersonajesValido");
+console.log(cntPersonajesValido);
+console.log(cantidadfichasusadas);
+console.log(cantidadfichasusadas<cntPersonajesValido);
 
       return (
-        (rol!="postulante",pagnumber==1)? 
+        (rol!="postulante",pagnumber==1,(cantidadfichasusadas<cntPersonajesValido))? 
         <div className="container mt-5" style={{
         
           width: '50%',
@@ -1176,7 +1205,7 @@ const Crear = () => {
             <br></br>
             <br></br>
         </div>
-       : (rol!="postulante",pagnumber==2)? <div className="container mt-5" style={{width: '50%',}}>
+       : (rol!="postulante",pagnumber==2,(cantidadfichasusadas<cntPersonajesValido))? <div className="container mt-5" style={{width: '50%',}}>
 
           <div>
           <h1 style={{ color: 'red' }}>{textoadvertencia}</h1>
@@ -1338,7 +1367,11 @@ const Crear = () => {
             <br></br>  
           </div>
 
-      :<div>
+        :(rol!="postulante",(cantidadfichasusadas>=cntPersonajesValido))? <div>
+        <h1 style={{ color: 'red' }}>ya has creado la maxima cantidad de personajes</h1>
+        </div>
+
+        :<div>
          <h1 style={{ color: 'red' }}>no tienes permisos, pidele a un GM que te lo habilite, brindandole tu correo de contacto</h1>
        </div>
 

@@ -14,6 +14,10 @@ const Users = db.define('users',{
         type: DataTypes.STRING
     },
     rol:{
+        ///postulante, admin, miembro
+        type: DataTypes.STRING
+    },
+    CntPersonajes:{
         type: DataTypes.STRING
     },
     refresh_token:{

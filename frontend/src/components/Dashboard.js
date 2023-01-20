@@ -82,6 +82,28 @@ const Dashboard = () => {
         });
         setPersonaje(response.data);
 
+        console.log("set personajes");
+        console.log();
+
+     }
+
+     const cambiarrol= async(email,nuevorol)=>{
+
+        axios.post(process.env.REACT_APP_URL+':5000/changeStatus',{email:email,role: nuevorol }, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+          console.log("response")
+            console.log(response)
+            window.location.reload()
+        })
+        .catch((error) => {
+          console.log("error")
+          console.log(error)
+        });
+       
      }
  
 
@@ -104,6 +126,8 @@ const Dashboard = () => {
                         <th>No</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Tipo</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -112,6 +136,30 @@ const Dashboard = () => {
                             <td>{index + 1}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
+                            <td>{user.rol}</td>
+                            {(user.rol=="postulante")? 
+                             <td>
+                                <th>
+                                <button 
+                                      className="btn btn-info btn-sm"
+                                      onClick={() => cambiarrol(user.email,"miembro")}
+                                     >
+                                     Aceptar Usuario
+                                    </button>
+                                </th>
+                                <th>
+                                <button 
+                                      className="btn btn-info btn-sm"
+                                      onClick={() => cambiarrol(user.email,"rechazado")}
+                                     >
+                                     Rechazar Usuario
+                                    </button>
+                                </th>
+                            </td>
+                            :
+                            <td></td>
+                            }
+
                         </tr>
                     ))}
 
@@ -120,6 +168,8 @@ const Dashboard = () => {
              : <h1></h1>
             }
            {(personajes!=null)? 
+
+           
             <table className="table is-striped is-fullwidth">
                 <thead>
                     <tr>

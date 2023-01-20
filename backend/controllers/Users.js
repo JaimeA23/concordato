@@ -320,6 +320,31 @@ export const Register = async(req, res) => {
         console.log(error);
     }
 }
+
+ 
+export const Actualizar = async(req, res) => {
+
+    console.log( req.body.email);
+    console.log( req.body.role);
+
+    try {
+        const user = await Users.findAll({
+            where:{
+                email: req.body.email
+            }
+        });
+
+        await Users.update({rol: req.body.role},{
+            where:{
+                email: req.body.email
+            }
+        });
+        console.log("actualizacion terminada");
+        res.json({msg: "actualizacion terminada"});
+    } catch (error) {
+        console.log(error);
+    }
+}
  
 export const Login = async(req, res) => {
     try {
